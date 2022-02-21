@@ -44,16 +44,24 @@ ol, ul {
 .tile {
   height: 50px;
   width: 50px;
+  border: 1px solid #999;
 }
 
 .tile-letter {
   text-align: center;
+  position: relative;
+  top: -40px;
+}
+
+.tile-points {
+  position: relative;
+  top: -40px;
+  left: 5px;
 }
 
 .tile-slot {
   height: 50px;
   width: 50px;
-  border: 1px solid #999;
   float: left;
 }
 

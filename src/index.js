@@ -2,87 +2,50 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-var letters = [];
-for (let i = 0; i < 9; i++){
-  letters.push({'A': 1})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'B': 3})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'C': 3})
-}
-for (let i = 0; i < 4; i++){
-  letters.push({'D': 2})
-}
-for (let i = 0; i < 12; i++){
-  letters.push({'E': 1})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'F': 4})
-}
-for (let i = 0; i < 3; i++){
-  letters.push({'G': 2})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'H': 4})
-}
-for (let i = 0; i < 9; i++){
-  letters.push({'I': 1})
-}
-letters.push({'J': 8});
-letters.push({'K': 5});
-for (let i = 0; i < 4; i++){
-  letters.push({'L': 1})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'M': 3})
-}
-for (let i = 0; i < 6; i++){
-  letters.push({'N': 1})
-}
-for (let i = 0; i < 8; i++){
-  letters.push({'O': 1})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'P': 3})
-}
-letters.push({'Q': 10});
-for (let i = 0; i < 6; i++){
-  letters.push({'R': 1})
-}
-for (let i = 0; i < 4; i++){
-  letters.push({'S': 1})
-}
-for (let i = 0; i < 6; i++){
-  letters.push({'T': 1})
-}
-for (let i = 0; i < 4; i++){
-  letters.push({'U': 1})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'V': 4})
-}
-for (let i = 0; i < 2; i++){
-  letters.push({'W': 4})
-}
-letters.push({'X': 8});
-for (let i = 0; i < 2; i++){
-  letters.push({'Y': 4})
-}
-letters.push({'Z': 10});
-for (let i = 0; i < 2; i++){
-  letters.push({' ': 0})
+const allLetters = {
+  'A': { 'points':  1, 'tiles':  9 },
+  'B': { 'points':  3, 'tiles':  2 },
+  'C': { 'points':  3, 'tiles':  2 },
+  'D': { 'points':  2, 'tiles':  4 },
+  'E': { 'points':  1, 'tiles': 12 },
+  'F': { 'points':  4, 'tiles':  2 },
+  'G': { 'points':  2, 'tiles':  3 },
+  'H': { 'points':  4, 'tiles':  2 },
+  'I': { 'points':  1, 'tiles':  9 },
+  'J': { 'points':  8, 'tiles':  1 },
+  'K': { 'points':  5, 'tiles':  1 },
+  'L': { 'points':  1, 'tiles':  4 },
+  'M': { 'points':  3, 'tiles':  2 },
+  'N': { 'points':  1, 'tiles':  6 },
+  'O': { 'points':  1, 'tiles':  8 },
+  'P': { 'points':  3, 'tiles':  2 },
+  'Q': { 'points': 10, 'tiles':  1 },
+  'R': { 'points':  1, 'tiles':  6 },
+  'S': { 'points':  1, 'tiles':  4 },
+  'T': { 'points':  1, 'tiles':  6 },
+  'U': { 'points':  1, 'tiles':  4 },
+  'V': { 'points':  4, 'tiles':  2 },
+  'W': { 'points':  4, 'tiles':  2 },
+  'X': { 'points':  8, 'tiles':  1 },
+  'Y': { 'points':  4, 'tiles':  2 },
+  'Z': { 'points': 10, 'tiles':  1 },
+  'bl': { 'tiles': 2}
 }
 
-var player1letters = [];
+let tiles = [];
+
+Object.keys(allLetters).forEach(letter => {
+  for (let i = 0; i < allLetters[letter]['tiles']; i += 1){
+    tiles.push(letter);
+  }
+});
+
+var player1tiles = [];
 for (let i = 0; i < 7; i++){
-  let letterIndex = Math.round(Math.random() * letters.length);
-  player1letters.push(letters[letterIndex]);
-  letters.splice(letterIndex, 1);
+  let tileIndex = Math.round(Math.random() * tiles.length - 1);
+  player1tiles.push(tiles[tileIndex]);
+  tiles.splice(tileIndex, 1);
 }
-
-console.log(letters);
 
 class Square extends React.Component {
   render(){
@@ -104,11 +67,12 @@ class Tile extends React.Component {
   render(){
     return(
       <div className = 'tile' draggable = 'true'>
-        <div className = 'tile-letter'>{Object.keys(letters[0])[0]}</div>
-        <div className = 'tile-points'>{letters[0].A}</div>
-      </div>
-      )
-  }
+        {player1tiles.forEach(letter => {
+          return(
+            <div className = 'tile-letter'>{letter}</div>
+          )})}
+    </div>
+  )}
 }
 
 class Rack extends React.Component {
@@ -138,11 +102,8 @@ class Board extends React.Component {
   }
 
   render(){
-    const status = 'Next player: X';
-
     return(
       <div>
-        <div className='status'>{status}</div>
         <div className='board-row'>
           {this.renderSquare()}
           {this.renderSquare()}

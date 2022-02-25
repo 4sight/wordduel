@@ -40,12 +40,14 @@ Object.keys(allLetters).forEach(letter => {
   }
 });
 
-var player1tiles = [];
+var playersTiles = [];
 for (let i = 0; i < 7; i++){
   let tileIndex = Math.round(Math.random() * tiles.length - 1);
-  player1tiles.push(tiles[tileIndex]);
+  playersTiles.push(tiles[tileIndex]);
   tiles.splice(tileIndex, 1);
 }
+
+console.log(playersTiles);
 
 class Square extends React.Component {
   render(){
@@ -55,42 +57,33 @@ class Square extends React.Component {
   }
 }
 
-class TileSlot extends React.Component {
-  render(){
-    return(
-      <div className = 'tile-slot'></div>
-      )
-  }
-}
-
 class Tile extends React.Component {
   render(){
     return(
-      <div className = 'tile' draggable = 'true'>
-        {player1tiles.forEach(letter => {
-          return(
-            <div className = 'tile-letter'>{letter}</div>
-          )})}
-    </div>
-  )}
+      <button className='tile'>
+        {this.props.value}
+      </button>
+    );
+  }
 }
 
 class Rack extends React.Component {
-  renderTileSlot(){
-    return <TileSlot />;
+  renderTile(letter){
+    return <Tile value = {playersTiles[0]} />;
   }
 
   render(){
     return(
+      <div className = 'tile' draggable = 'true'>
+        <div className = 'tile-letter'>{this.renderTile(playersTiles[0])}</div>
+      </div>
+  )}
+
+  render(letter){
+    return(
       <div>
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
-        {this.renderTileSlot()}
+        {this.renderTile()}
+        {this.renderTile()}
       </div>
       );
   }
@@ -373,7 +366,6 @@ class Game extends React.Component {
         </div>
         <div className='rack'>
           <Rack />
-          <Tile />
         </div>
       </div>
     );

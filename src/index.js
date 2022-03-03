@@ -72,13 +72,6 @@ class Rack extends React.Component {
     return <Tile value = {playersTiles[0]} />;
   }
 
-  render(){
-    return(
-      <div className = 'tile' draggable = 'true'>
-        <div className = 'tile-letter'>{this.renderTile(playersTiles[0])}</div>
-      </div>
-  )}
-
   render(letter){
     return(
       <div>

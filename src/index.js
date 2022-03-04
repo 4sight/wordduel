@@ -29,20 +29,20 @@ const allLetters = {
   'X': { 'points':  8, 'tiles':  1 },
   'Y': { 'points':  4, 'tiles':  2 },
   'Z': { 'points': 10, 'tiles':  1 },
-  'bl': { 'tiles': 2}
+  '‏‏‎ ‎': { 'tiles': 2 }
 }
 
 let tiles = [];
 
 Object.keys(allLetters).forEach(letter => {
   for (let i = 0; i < allLetters[letter]['tiles']; i += 1){
-    tiles.push(letter);
+    tiles.push({'letter': letter, 'points': allLetters[letter]['points']});
   }
 });
 
 var playersTiles = [];
 for (let i = 0; i < 7; i++){
-  let tileIndex = Math.round(Math.random() * tiles.length - 1);
+  let tileIndex = Math.round(Math.random() * (tiles.length - 1));
   playersTiles.push(tiles[tileIndex]);
   tiles.splice(tileIndex, 1);
 }
@@ -61,7 +61,8 @@ class Tile extends React.Component {
   render(){
     return(
       <button className='tile'>
-        {this.props.value}
+        {this.props.letter}
+        <div>{this.props.points}</div>
       </button>
     );
   }
@@ -71,7 +72,7 @@ class Rack extends React.Component {
   render(){
     return(
       playersTiles.map(function(tile, index){
-        return <Tile key = {index} value = {tile} />
+        return <Tile key = {index} letter = {tile['letter']} points = {tile['points']}/>
       })
     )
   }

@@ -70,9 +70,9 @@ class Tile extends React.Component {
 class Rack extends React.Component {
   render(){
     return(
-      {playersTiles.map(function(tile, index){
+      playersTiles.map(function(tile, index){
         return <Tile key = {index} value = {tile} />
-      })}
+      })
     )
   }
 }

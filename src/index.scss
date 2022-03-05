@@ -73,6 +73,12 @@ ol, ul {
   flex-direction: column;
 }
 
+.first {
+  @include square;
+  font-size: 14px;
+  background-color: pink;
+}
+
 .normal {
   @include square;
   background-color: lightgrey;

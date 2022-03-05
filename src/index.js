@@ -55,8 +55,10 @@ class Square extends React.Component {
       <div>
         {(() => {
           switch (this.props.className){
+            case 'first':
+              return <button className = {this.props.className}>★</button>
             case 'normal':
-              return <button className = {this.props.className}>‏‏‎ ‎</button>
+              return <button className = {this.props.className}></button>
             case 'TW':
               return <button className = {this.props.className}>3W</button>
             case 'DW':
@@ -111,7 +113,7 @@ const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW
   'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',
   'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
   'normal', 'normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
-  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW',
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'first', 'normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW',
   'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
   'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
   'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',

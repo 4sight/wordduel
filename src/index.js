@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 
 const allLetters = {
   'A': { 'points':  1, 'tiles':  9 },
@@ -52,7 +52,7 @@ console.log(playersTiles);
 class Square extends React.Component {
   render(){
     return(
-      <button className = 'square'></button>
+      <button className = {this.props.className}></button>
     );
   }
 }
@@ -88,7 +88,7 @@ class Rack extends React.Component {
   }
 }
 
-const board = ['3W', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', '3W', 'normal', 'normal', 'normal', '2L', 'normal', 'normal', '3W', 'normal', '2W', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', '2L', 'normal', '2L', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', '2L', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '3L','normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '2L','normal', 'normal', 'normal', '2L','normal', '2L','normal', 'normal', 'normal', '2L','normal', 'normal', '3W', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', '2W','normal', 'normal', 'normal', '2L','normal', 'normal', '3W'];
+const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW', 'normal', 'DW', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW','normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW'];
 
 class Board extends React.Component {
   render(){

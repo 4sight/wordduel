@@ -62,7 +62,17 @@ class Tile extends React.Component {
     return(
       <button className='tile'>
         {this.props.letter}
-        <div className = 'points'>{this.props.points}</div>
+      {(() => {
+        if (this.props.points === 0){
+          return(
+            <div className = 'points'>‏‏‎ ‎</div>
+          )
+        } else {
+          return (
+            <div className = 'points'>{this.props.points}</div>
+          )
+        }
+      })()}
       </button>
     );
   }

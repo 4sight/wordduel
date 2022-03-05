@@ -52,8 +52,24 @@ console.log(playersTiles);
 class Square extends React.Component {
   render(){
     return(
-      <button className = {this.props.className}></button>
-    );
+      <div>
+        {(() => {
+          switch (this.props.className){
+            case 'normal':
+              return <button className = {this.props.className}>‏‏‎ ‎</button>
+            case 'TW':
+              return <button className = {this.props.className}>3W</button>
+            case 'DW':
+              return <button className = {this.props.className}>2W</button>
+            case 'TL':
+              return <button className = {this.props.className}>3L</button>
+            case 'DL':
+              return <button className = {this.props.className}>2W</button>
+          }
+        })()
+      }
+      </div> 
+    )
   }
 }
 
@@ -95,7 +111,7 @@ const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW
   'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',
   'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
   'normal', 'normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
-  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW','normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW',
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW',
   'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
   'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
   'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',

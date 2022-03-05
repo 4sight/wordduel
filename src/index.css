@@ -49,14 +49,12 @@ ol, ul {
 
 .tile-letter {
   text-align: center;
-  position: relative;
-  top: -40px;
 }
 
-.tile-points {
+.points {
   position: relative;
-  top: -40px;
-  left: 5px;
+  top: 3px;
+  left: 14px;
 }
 
 .tile-slot {
@@ -68,9 +66,14 @@ ol, ul {
 .game-board {
   display: block;
   margin-bottom: 1rem;
+  width: 300px;
 }
 
 .game {
   display: flex;
   flex-direction: column;
+}
+
+.normal {
+  background-color: grey;
 }

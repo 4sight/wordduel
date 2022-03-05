@@ -29,7 +29,7 @@ const allLetters = {
   'X': { 'points':  8, 'tiles':  1 },
   'Y': { 'points':  4, 'tiles':  2 },
   'Z': { 'points': 10, 'tiles':  1 },
-  '‏‏‎ ‎': { 'tiles': 2 }
+  '‏‏‎ ‎': { 'points': 0, 'tiles': 2 }
 }
 
 let tiles = [];
@@ -52,7 +52,7 @@ console.log(playersTiles);
 class Square extends React.Component {
   render(){
     return(
-      <button className='square'></button>
+      <button className = 'square'></button>
     );
   }
 }
@@ -62,7 +62,7 @@ class Tile extends React.Component {
     return(
       <button className='tile'>
         {this.props.letter}
-        <div>{this.props.points}</div>
+        <div className = 'points'>{this.props.points}</div>
       </button>
     );
   }
@@ -78,18 +78,14 @@ class Rack extends React.Component {
   }
 }
 
-class Board extends React.Component {
-  renderSquare(){
-    return <Square />;
-  }
+const board = ['3W', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', '3W', 'normal', 'normal', 'normal', '2L', 'normal', 'normal', '3W', 'normal', '2W', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', '2L', 'normal', '2L', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', '2L', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', 'normal', 'normal', '2W', 'normal', 'normal', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '3L','normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '3L', 'normal', 'normal', 'normal', '2L','normal', 'normal', 'normal', '2L','normal', '2L','normal', 'normal', 'normal', '2L','normal', 'normal', '3W', 'normal', 'normal', '2L', 'normal', 'normal', 'normal', '2W','normal', 'normal', 'normal', '2L','normal', 'normal', '3W'];
 
+class Board extends React.Component {
   render(){
     return(
-      <div>
-        <div className='board-row'>
-          {this.renderSquare()}
-        </div>
-      </div>
+      board.map(function(square, index){
+        return <Square key = {index} className = {square} />
+      })
     );
   }
 }

@@ -88,7 +88,21 @@ class Rack extends React.Component {
   }
 }
 
-const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW', 'normal', 'DW', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW','normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW'];
+const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',
+  'normal', 'DW', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DW', 'normal',
+  'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal',
+  'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL',
+  'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',
+  'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
+  'normal', 'normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW','normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW',
+  'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
+  'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
+  'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',
+  'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL',
+  'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal',
+  'normal', 'DW', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DW', 'normal',
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',];
 
 class Board extends React.Component {
   render(){
@@ -96,7 +110,7 @@ class Board extends React.Component {
       board.map(function(square, index){
         return <Square key = {index} className = {square} />
       })
-    );
+    )    
   }
 }
 

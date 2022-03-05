@@ -1,0 +1,99 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+@mixin square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 8px;
+  font-weight: bold;
+  height: 20px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 20px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.rack {
+  height: 50px;
+  width: 500px;
+}
+
+.tile {
+  height: 50px;
+  width: 50px;
+  border: 1px solid #999;
+}
+
+.tile-letter {
+  text-align: center;
+}
+
+.points {
+  position: relative;
+  top: 3px;
+  left: 14px;
+}
+
+.tile-slot {
+  height: 50px;
+  width: 50px;
+  float: left;
+}
+
+.game-board {
+  display: block;
+  margin-bottom: 1rem;
+  width: 300px;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+}
+
+.normal {
+  @include square;
+  background-color: lightgrey;
+}
+
+.TW {
+  @include square;
+  background-color: red;
+}
+
+.DW {
+  @include square;
+  background-color: pink;
+}
+
+.TL {
+  @include square;
+  background-color: blue;
+}
+
+.DL {
+  @include square;
+  background-color: lightblue;
+}

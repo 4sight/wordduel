@@ -52,27 +52,47 @@ for (let i = 0; i < 7; i++){
 console.log(playersTiles);
 
 class Square extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      dragOver: false
+    };
+    this.handleDragOver = this.handleDragOver.bind(this);
+  }
+
+  handleDragOver(){
+    // e.preventDefault();
+    // e.stopPropagation();
+    this.setState({
+      dragOver: !this.state.dragOver
+    });
+  }
+
   render(){
     return(
-      <div>
+      <button className = {this.state.dragOver ? 'hover' : this.props.className}
+      // onDragOver = {this.handleDragOver}
+      onDragEnter = {this.handleDragOver}
+      onDragLeave = {this.handleDragOver}
+      >
         {(() => {
           switch (this.props.className){
             case 'first':
-              return <button className = {this.props.className}>★</button>
+              return <div>★</div>
             case 'TW':
-              return <button className = {this.props.className}>3W</button>
+              return <div>3W</div>
             case 'DW':
-              return <button className = {this.props.className}>2W</button>
+              return <div>2W</div>
             case 'TL':
-              return <button className = {this.props.className}>3L</button>
+              return <div>3L</div>
             case 'DL':
-              return <button className = {this.props.className}>2L</button>
+              return <div>2L</div>
             default:
-              return <button className = {this.props.className}></button>
+              return <div></div>
           }
         })()
       }
-      </div> 
+      </button> 
     )
   }
 }
@@ -82,9 +102,9 @@ class Tile extends React.Component {
     e.dataTransfer.setData('text/plain', index);
   }
 
-  handleDragEnter(e, index){
-    this.classList.add('over');
-  }
+  // handleDragEnter(e, index){
+  //   this.classList.add('over');
+  // }
 
   handleDragEnd(e, index){
     this.style.opacity = '1';
@@ -96,7 +116,8 @@ class Tile extends React.Component {
       className = 'tile'
       draggable
       onDragStart = {(e) => this.handleDragStart(e, this.props.index)}
-      onDragEnter = {(e) => this.handleDragEnter(e, this.props.index)}>
+      // onDragEnter = {(e) => this.handleDragEnter(e, this.props.index)}
+      >
         {this.props.letter}
       {(() => {
         if (this.props.points === 0){
@@ -146,17 +167,10 @@ class Board extends React.Component {
     if (target[index]) return;
   }
 
-  handleDragOver(e){
-    e.dataTransfer.dropEffect = 'move';
-    e.classList.add('over');
-    console.log("dragOver: dropEffect = " + e.dataTransfer.dropEffect + " ; effectAllowed = " + e.dataTransfer.effectAllowed);
-  }
-
   render(){
     return(
       board.map(function(square, index){
         return <Square key = {index} className = {square}
-        onDragOver = 'handeDragOver(event);'
         onDrop = {(e) => this.handleDrop(e, index)}
         />
       })

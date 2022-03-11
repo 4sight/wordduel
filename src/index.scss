@@ -31,8 +31,11 @@ ol, ul {
   width: 20px;
 }
 
-.over {
-  border: 3px dotted #666;
+.hover {
+  @include square;
+  border: 3px solid #999;
+  height: 16px;
+  width: 16px;
 }
 
 .square:focus {

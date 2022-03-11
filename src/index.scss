@@ -32,10 +32,7 @@ ol, ul {
 }
 
 .hover {
-  @include square;
   border: 3px solid #999;
-  height: 16px;
-  width: 16px;
 }
 
 .square:focus {
@@ -92,9 +89,21 @@ ol, ul {
   background-color: lightgrey;
 }
 
+.normal.hover {
+  @include square;
+  background-color: lightgrey;
+  border: 3px solid #999;
+}
+
 .TW {
   @include square;
   background-color: red;
+}
+
+.TW.hover {
+  @include square;
+  background-color: red;
+  border: 3px solid #999;
 }
 
 .DW {
@@ -102,12 +111,30 @@ ol, ul {
   background-color: pink;
 }
 
+.DW.hover {
+  @include square;
+  background-color: pink;
+  border: 3px solid #999;
+}
+
 .TL {
   @include square;
   background-color: #6264F4;
 }
 
+.TL.hover {
+  @include square;
+  background-color: #6264F4;
+  border: 3px solid #999;
+}
+
 .DL {
   @include square;
   background-color: lightblue;
+}
+
+.DL.hover {
+  @include square;
+  background-color: lightblue;
+  border: 3px solid #999;
 }

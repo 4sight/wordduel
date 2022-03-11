@@ -70,7 +70,7 @@ class Square extends React.Component {
 
   render(){
     return(
-      <button className = {this.state.dragOver ? 'hover' : this.props.className}
+      <button className = {this.state.dragOver ? this.props.className + ' hover' : this.props.className}
       // onDragOver = {this.handleDragOver}
       onDragEnter = {this.handleDragOver}
       onDragLeave = {this.handleDragOver}

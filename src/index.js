@@ -33,18 +33,20 @@ const allLetters = {
 }
 
 let tiles = [];
+let index = 0;
 
 Object.keys(allLetters).forEach(letter => {
   for (let i = 0; i < allLetters[letter]['tiles']; i += 1){
-    tiles.push({'letter': letter, 'points': allLetters[letter]['points']});
+    tiles.push({'letter': letter, 'points': allLetters[letter]['points'], 'index': index});
+    index++;
   }
 });
 
 var playersTiles = [];
 for (let i = 0; i < 7; i++){
-  let tileIndex = Math.round(Math.random() * (tiles.length - 1));
-  playersTiles.push(tiles[tileIndex]);
-  tiles.splice(tileIndex, 1);
+  let tilePicker = Math.round(Math.random() * (tiles.length - 1));
+  playersTiles.push(tiles[tilePicker]);
+  tiles.splice(tilePicker, 1);
 }
 
 console.log(playersTiles);
@@ -57,8 +59,6 @@ class Square extends React.Component {
           switch (this.props.className){
             case 'first':
               return <button className = {this.props.className}>★</button>
-            case 'normal':
-              return <button className = {this.props.className}></button>
             case 'TW':
               return <button className = {this.props.className}>3W</button>
             case 'DW':
@@ -66,7 +66,9 @@ class Square extends React.Component {
             case 'TL':
               return <button className = {this.props.className}>3L</button>
             case 'DL':
-              return <button className = {this.props.className}>2W</button>
+              return <button className = {this.props.className}>2L</button>
+            default:
+              return <button className = {this.props.className}></button>
           }
         })()
       }
@@ -76,9 +78,25 @@ class Square extends React.Component {
 }
 
 class Tile extends React.Component {
+  handleDragStart(e, index){
+    e.dataTransfer.setData('text/plain', index);
+  }
+
+  handleDragEnter(e, index){
+    this.classList.add('over');
+  }
+
+  handleDragEnd(e, index){
+    this.style.opacity = '1';
+  }
+
   render(){
     return(
-      <button className='tile'>
+      <button
+      className = 'tile'
+      draggable
+      onDragStart = {(e) => this.handleDragStart(e, this.props.index)}
+      onDragEnter = {(e) => this.handleDragEnter(e, this.props.index)}>
         {this.props.letter}
       {(() => {
         if (this.props.points === 0){
@@ -99,8 +117,8 @@ class Tile extends React.Component {
 class Rack extends React.Component {
   render(){
     return(
-      playersTiles.map(function(tile, index){
-        return <Tile key = {index} letter = {tile['letter']} points = {tile['points']}/>
+      playersTiles.map(function(tile){
+        return <Tile key = {tile['index']} letter = {tile['letter']} points = {tile['points']}/>
       })
     )
   }
@@ -111,11 +129,11 @@ const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW
   'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal',
   'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL',
   'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',
-  'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
-  'normal', 'normal', 'DL','normal', 'normal', 'normal', 'DL','normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
-  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'first', 'normal', 'normal', 'normal', 'DL','normal', 'normal', 'TW',
-  'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL','normal', 'normal',
-  'normal', 'TL', 'normal', 'normal', 'normal', 'TL','normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
+  'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
+  'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal',
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'first', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',
+  'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal',
+  'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal',
   'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'normal',
   'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL',
   'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal',
@@ -123,16 +141,36 @@ const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW
   'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',];
 
 class Board extends React.Component {
+  handleDrop(e, index, targetName){
+    let target = this.state[targetName];
+    if (target[index]) return;
+  }
+
+  handleDragOver(e){
+    e.dataTransfer.dropEffect = 'move';
+    e.classList.add('over');
+    console.log("dragOver: dropEffect = " + e.dataTransfer.dropEffect + " ; effectAllowed = " + e.dataTransfer.effectAllowed);
+  }
+
   render(){
     return(
       board.map(function(square, index){
-        return <Square key = {index} className = {square} />
+        return <Square key = {index} className = {square}
+        onDragOver = 'handeDragOver(event);'
+        onDrop = {(e) => this.handleDrop(e, index)}
+        />
       })
     )    
   }
 }
 
 class Game extends React.Component {
+  state = {
+    player1points: 0,
+    player2points: 0,
+    lastPriority: 1
+  };
+
   render(){
     return(
       <div className='game'>

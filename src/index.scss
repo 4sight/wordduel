@@ -31,6 +31,10 @@ ol, ul {
   width: 20px;
 }
 
+.over {
+  border: 3px dotted #666;
+}
+
 .square:focus {
   outline: none;
 }
@@ -44,6 +48,7 @@ ol, ul {
   height: 50px;
   width: 50px;
   border: 1px solid #999;
+  cursor: default;
 }
 
 .tile-letter {

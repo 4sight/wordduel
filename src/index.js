@@ -60,19 +60,22 @@ class Square extends React.Component {
     this.handleDragOver = this.handleDragOver.bind(this);
   }
 
-  handleDragOver(){
-    // e.preventDefault();
-    // e.stopPropagation();
+  handleDragOver(e){
+    e.preventDefault();
     this.setState({
       dragOver: !this.state.dragOver
     });
   }
 
+  handleDragOverCursor(e){
+    e.preventDefault();
+  }
+
   render(){
     return(
       <button className = {this.state.dragOver ? this.props.className + ' hover' : this.props.className}
-      // onDragOver = {this.handleDragOver}
       onDragEnter = {this.handleDragOver}
+      onDragOver = {this.handleDragOverCursor}
       onDragLeave = {this.handleDragOver}
       >
         {(() => {

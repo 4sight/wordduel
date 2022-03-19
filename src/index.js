@@ -58,10 +58,14 @@ class Square extends React.Component {
       dragOver: false
     };
     this.handleDragOver = this.handleDragOver.bind(this);
+    this.drop = this.drop.bind(this);
+  }
+
+  handleDragStart(e){
+    e.dataTransfer.setData('drag-item', this.props.dataItem);
   }
 
   handleDragOver(e){
-    e.preventDefault();
     this.setState({
       dragOver: !this.state.dragOver
     });
@@ -71,12 +75,26 @@ class Square extends React.Component {
     e.preventDefault();
   }
 
+  drop(e){
+    this.setState({
+      dragOver: !this.state.dragOver
+    });
+    const droppedItem = e.dataTransfer.getData('letter');
+    if (droppedItem){
+      this.props.onItemDropped(droppedItem);
+    }
+  }
+
   render(){
     return(
-      <button className = {this.state.dragOver ? this.props.className + ' hover' : this.props.className}
-      onDragEnter = {this.handleDragOver}
-      onDragOver = {this.handleDragOverCursor}
-      onDragLeave = {this.handleDragOver}
+      <button
+        className =     {this.state.dragOver ? this.props.className + ' hover' : this.props.className}
+        onDrop =        {this.drop}
+        onDragStart =   {this.handleDragStart}
+        onDragEnter =   {this.handleDragOver}
+        onDragOver =    {this.handleDragOverCursor}
+        onDragLeave =   {this.handleDragOver}
+        onItemDropped = {this.itemDropped}
       >
         {(() => {
           switch (this.props.className){
@@ -102,12 +120,8 @@ class Square extends React.Component {
 
 class Tile extends React.Component {
   handleDragStart(e, index){
-    e.dataTransfer.setData('text/plain', index);
+    e.dataTransfer.setData('drag-item', this.props.letter);
   }
-
-  // handleDragEnter(e, index){
-  //   this.classList.add('over');
-  // }
 
   handleDragEnd(e, index){
     this.style.opacity = '1';
@@ -118,8 +132,7 @@ class Tile extends React.Component {
       <button
       className = 'tile'
       draggable
-      onDragStart = {(e) => this.handleDragStart(e, this.props.index)}
-      // onDragEnter = {(e) => this.handleDragEnter(e, this.props.index)}
+      onDragStart = {this.handleDragStart}
       >
         {this.props.letter}
       {(() => {

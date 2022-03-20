@@ -61,10 +61,6 @@ class Square extends React.Component {
     this.drop = this.drop.bind(this);
   }
 
-  handleDragStart(e){
-    e.dataTransfer.setData('drag-item', this.props.dataItem);
-  }
-
   handleDragOver(e){
     this.setState({
       dragOver: !this.state.dragOver
@@ -79,10 +75,10 @@ class Square extends React.Component {
     this.setState({
       dragOver: !this.state.dragOver
     });
-    const droppedItem = e.dataTransfer.getData('letter');
-    if (droppedItem){
-      this.props.onItemDropped(droppedItem);
-    }
+    e.preventDefault();
+    var data = e.dataTransfer.getData('letter');
+    console.log(data);
+    return data;
   }
 
   render(){
@@ -94,7 +90,6 @@ class Square extends React.Component {
         onDragEnter =   {this.handleDragOver}
         onDragOver =    {this.handleDragOverCursor}
         onDragLeave =   {this.handleDragOver}
-        onItemDropped = {this.itemDropped}
       >
         {(() => {
           switch (this.props.className){
@@ -113,18 +108,25 @@ class Square extends React.Component {
           }
         })()
       }
-      </button> 
+      </button>
     )
   }
 }
 
 class Tile extends React.Component {
-  handleDragStart(e, index){
-    e.dataTransfer.setData('drag-item', this.props.letter);
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+      placed: false,
+    };
 
-  handleDragEnd(e, index){
-    this.style.opacity = '1';
+    this.handleDragEnd = (e) => {
+      this.setState({ placed: true });
+    }
+
+    this.drag = (e) => {
+      e.dataTransfer.setData('letter', e.target.firstChild.textContent);
+    }
   }
 
   render(){
@@ -132,7 +134,8 @@ class Tile extends React.Component {
       <button
       className = 'tile'
       draggable
-      onDragStart = {this.handleDragStart}
+      onDragStart = {this.drag}
+      onDragEnd = {this.handleDragEnd}
       >
         {this.props.letter}
       {(() => {

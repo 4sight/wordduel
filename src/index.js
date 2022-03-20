@@ -86,7 +86,9 @@ class Square extends React.Component {
         className = {(() => {
           if (this.state.dragOver)
             { return this.props.className + ' hover' } else {
-              return this.props.className }})()}
+              if (this.state.drop)
+                { return 'dropped' } else {
+              return this.props.className }}})()}
         onDrop =        {this.drop}
         onDragEnter =   {this.handleDragOver}
         onDragOver =    {this.handleDragOverCursor}

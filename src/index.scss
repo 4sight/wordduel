@@ -77,6 +77,11 @@ ol, ul {
   flex-direction: column;
 }
 
+.dropped {
+  @include square;
+  background-color: yellow;
+}
+
 $hover-border: 4px solid #999;
 
 .normal {

@@ -55,7 +55,8 @@ class Square extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      dragOver: false
+      dragOver: false,
+      drop:     null
     };
     this.handleDragOver = this.handleDragOver.bind(this);
     this.drop = this.drop.bind(this);
@@ -76,9 +77,9 @@ class Square extends React.Component {
       dragOver: !this.state.dragOver
     });
     e.preventDefault();
-    var data = e.dataTransfer.getData('letter');
-    console.log(data);
-    return data;
+    let letter = e.dataTransfer.getData('letter');
+    console.log(letter);
+    this.setState({drop: letter});
   }
 
   render(){
@@ -91,7 +92,7 @@ class Square extends React.Component {
         onDragOver =    {this.handleDragOverCursor}
         onDragLeave =   {this.handleDragOver}
       >
-        {(() => {
+        {(() => {if (this.state.drop) { return <div>{this.state.drop}</div> } else {
           switch (this.props.className){
             case 'first':
               return <div>★</div>
@@ -105,7 +106,7 @@ class Square extends React.Component {
               return <div>2L</div>
             default:
               return <div></div>
-          }
+          }}
         })()
       }
       </button>

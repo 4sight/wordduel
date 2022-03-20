@@ -74,12 +74,10 @@ class Square extends React.Component {
 
   drop(e){
     this.setState({
-      dragOver: !this.state.dragOver
+      dragOver: !this.state.dragOver,
+      drop: e.dataTransfer.getData('letter')
     });
     e.preventDefault();
-    let letter = e.dataTransfer.getData('letter');
-    console.log(letter);
-    this.setState({drop: letter});
   }
 
   render(){
@@ -87,7 +85,6 @@ class Square extends React.Component {
       <button
         className =     {this.state.dragOver ? this.props.className + ' hover' : this.props.className}
         onDrop =        {this.drop}
-        onDragStart =   {this.handleDragStart}
         onDragEnter =   {this.handleDragOver}
         onDragOver =    {this.handleDragOverCursor}
         onDragLeave =   {this.handleDragOver}
@@ -115,19 +112,8 @@ class Square extends React.Component {
 }
 
 class Tile extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      placed: false,
-    };
-
-    this.handleDragEnd = (e) => {
-      this.setState({ placed: true });
-    }
-
-    this.drag = (e) => {
-      e.dataTransfer.setData('letter', e.target.firstChild.textContent);
-    }
+  drag(e){
+    e.dataTransfer.setData('letter', e.target.firstChild.textContent);
   }
 
   render(){

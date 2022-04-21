@@ -119,6 +119,7 @@ class Square extends React.Component {
 class Tile extends React.Component {
   drag(e){
     e.dataTransfer.setData('letter', e.target.firstChild.textContent);
+    console.log(e.target.dataset.id);
   }
 
   render(){
@@ -127,7 +128,6 @@ class Tile extends React.Component {
       className = 'tile'
       draggable
       onDragStart = {this.drag}
-      onDragEnd = {this.handleDragEnd}
       >
         {this.props.letter}
       {(() => {
@@ -150,7 +150,12 @@ class Rack extends React.Component {
   render(){
     return(
       playersTiles.map(function(tile){
-        return <Tile key = {tile['index']} letter = {tile['letter']} points = {tile['points']}/>
+        return <Tile
+          key = {tile['index']}
+          data-id = {tile['index']}
+          letter = {tile['letter']}
+          points = {tile['points']}
+        />
       })
     )
   }

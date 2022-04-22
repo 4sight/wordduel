@@ -128,6 +128,7 @@ class Tile extends React.Component {
       className = 'tile'
       draggable
       onDragStart = {this.drag}
+      data-id = {this.props.dataId}
       >
         {this.props.letter}
       {(() => {
@@ -152,7 +153,7 @@ class Rack extends React.Component {
       playersTiles.map(function(tile){
         return <Tile
           key = {tile['index']}
-          data-id = {tile['index']}
+          dataId = {tile['index']}
           letter = {tile['letter']}
           points = {tile['points']}
         />
@@ -161,7 +162,8 @@ class Rack extends React.Component {
   }
 }
 
-const board = ['TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',
+const board = [
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',
   'normal', 'DW', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DW', 'normal',
   'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal',
   'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL',

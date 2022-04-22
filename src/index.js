@@ -33,19 +33,19 @@ const allLetters = {
 }
 
 let tiles = [];
-let index = 0;
 
 Object.keys(allLetters).forEach(letter => {
   for (let i = 0; i < allLetters[letter]['tiles']; i += 1){
-    tiles.push({'letter': letter, 'points': allLetters[letter]['points'], 'index': index});
-    index++;
+    tiles.push({'letter': letter, 'points': allLetters[letter]['points']});
   }
 });
 
 var playersTiles = [];
+
 for (let i = 0; i < 7; i++){
   let tilePicker = Math.round(Math.random() * (tiles.length - 1));
   playersTiles.push(tiles[tilePicker]);
+  playersTiles[i].index = i;
   tiles.splice(tilePicker, 1);
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useState } from 'react';
 import './index.scss';
 
 const allLetters = {
@@ -79,6 +78,8 @@ class Square extends React.Component {
       drop: e.dataTransfer.getData('letter')
     });
     e.preventDefault();
+    if (e.target.className === 'normal hover')
+      {console.log('on board')}
   }
 
   render(){
@@ -117,15 +118,10 @@ class Square extends React.Component {
   }
 }
 
-function updateRack(e){
-  this.state.playersTiles.splice(e, 1);
-  this.setState({playersTiles})
-}
-
 class Tile extends React.Component {
-  drag(e){
+  dragStart(e){
     e.dataTransfer.setData('letter', e.target.firstChild.textContent);
-    updateRack(e.target.dataset.id);
+    console.log(e.target.dataset.id);
   }
 
   render(){
@@ -133,7 +129,7 @@ class Tile extends React.Component {
       <button
       className = 'tile'
       draggable
-      onDragStart = {this.drag}
+      onDragStart = {this.dragStart}
       data-id = {this.props.dataId}
       >
         {this.props.letter}
@@ -154,17 +150,9 @@ class Tile extends React.Component {
 }
 
 class Rack extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      playersTiles: playersTiles
-    }
-    updateRack = updateRack.bind(this)
-  }
-
   render(){
     return(
-      this.state.playersTiles.map(function(tile){
+      playersTiles.map(function(tile){
         return <Tile
           key = {tile['index']}
           dataId = {tile['index']}
@@ -191,7 +179,7 @@ const board = [
   'DL', 'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal', 'DL',
   'normal', 'normal', 'DW', 'normal', 'normal', 'normal', 'DL', 'normal', 'DL', 'normal', 'normal', 'normal', 'DW', 'normal', 'normal',
   'normal', 'DW', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'TL', 'normal', 'normal', 'normal', 'DW', 'normal',
-  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW'];
+  'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',];
 
 class Board extends React.Component {
   handleDrop(e, index, targetName){

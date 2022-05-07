@@ -246,6 +246,7 @@ class Rack extends React.Component {
           dataId = {tile['index']}
           letter = {tile['letter']}
           points = {tile['points']}
+          x = {tile['index'] * 50 + 10}
         />
       })
     )

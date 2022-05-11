@@ -184,18 +184,19 @@ class Tile extends React.Component {
     e.target.hidden = true;
     this.state.elemBelow = document.elementFromPoint(e.clientX, e.clientY);
     console.log(this.state.elemBelow);
-    e.target.hidden = false;
-    if (!this.state.elemBelow) return;
-    this.state.droppableBelow = this.state.elemBelow.closest('.droppable');
-    if (this.statecurrentDroppable != this.state.droppableBelow){
-      if (this.state.currentDroppable){
-        console.log('leaving area');
-      }
-      this.state.currentDroppable = this.state.droppableBelow;
-      if (this.state.currentDroppable){
-        console.log('entering area');
-      }
-    }
+    if (this.state.elemBelow.className !== "game" || "rack")
+      {console.log('on board');}
+    else {e.target.hidden = false;}
+    // this.state.droppableBelow = this.state.elemBelow.closest('.droppable');
+    // if (this.statecurrentDroppable != this.state.droppableBelow){
+    //   if (this.state.currentDroppable){
+    //     console.log('leaving area');
+    //   }
+    //   this.state.currentDroppable = this.state.droppableBelow;
+    //   if (this.state.currentDroppable){
+    //     console.log('entering area');
+    //   }
+    // }
   }
   onMouseMove(e){
     this.onMove(e);

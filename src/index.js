@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import './index.scss';
 
 const allLetters = {
@@ -67,7 +66,6 @@ class Square extends React.Component {
     this.setState({
       dragOver: !this.state.dragOver
     });
-    console.log('dragover');
   }
 
   handleDragOverCursor(e){
@@ -76,10 +74,12 @@ class Square extends React.Component {
 
   drop(e){
     this.setState({
-      // dragOver: !this.state.dragOver,
-      // drop: e.dataTransfer.getData('letter')
+      dragOver: !this.state.dragOver,
+      drop: e.dataTransfer.getData('letter')
     });
     e.preventDefault();
+    if (e.target.className === 'normal hover')
+      {console.log('on board')}
   }
 
   render(){
@@ -92,7 +92,6 @@ class Square extends React.Component {
                 { return 'dropped' } else {
               return this.props.className }}})()}
         onDrop =        {this.drop}
-        onMouseUp =     {this.drop}
         onDragEnter =   {this.handleDragOver}
         onDragOver =    {this.handleDragOverCursor}
         onDragLeave =   {this.handleDragOver}
@@ -120,104 +119,6 @@ class Square extends React.Component {
 }
 
 class Tile extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      relX: 0,
-      relY: 0,
-      x: props.x,
-      y: props.y,
-      currentDroppable: null,
-      elemBelow: null,
-      droppableBelow: null
-    };
-    this.gridX = props.gridX || 1;
-    this.gridY = props.gridY || 1;
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
-    this.onTouchStart = this.onTouchStart.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
-    this.onTouchEnd = this.onTouchEnd.bind(this);
-  }
-
-  static propTypes = {
-    onMove: PropTypes.func,
-    onStop: PropTypes.func,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    gridX: PropTypes.number,
-    gridY: PropTypes.number
-  }; 
-  onStart(e){
-    const ref = ReactDOM.findDOMNode(this.handle);
-    const body = document.body;
-    const box = ref.getBoundingClientRect();
-    this.setState({
-        relX: e.pageX - (box.left + body.scrollLeft - body.clientLeft),
-        relY: e.pageY - (box.top + body.scrollTop - body.clientTop)
-    });
-    e.preventDefault();
-  }
-  onMove(e){
-    const x = Math.trunc((e.pageX - this.state.relX) / this.gridX) * this.gridX;
-    const y = Math.trunc((e.pageY - this.state.relY) / this.gridY) * this.gridY;
-    if (x !== this.state.x || y !== this.state.y){
-        this.setState({
-            x,
-            y
-        });
-        this.props.onMove && this.props.onMove(this.state.x, this.state.y);
-    }
-  }
-  onMouseDown(e){
-    if (e.button !== 0) return;
-    this.onStart(e);
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseUp);
-  }
-  onMouseUp(e){
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseUp);
-    this.props.onStop && this.props.onStop(this.state.x, this.state.y);
-    e.preventDefault();
-    e.target.hidden = true;
-    this.state.elemBelow = document.elementFromPoint(e.clientX, e.clientY);
-    console.log(this.state.elemBelow);
-    if (this.state.elemBelow.className !== "game" || "rack")
-      {console.log('on board');}
-    else {e.target.hidden = false;}
-    // this.state.droppableBelow = this.state.elemBelow.closest('.droppable');
-    // if (this.statecurrentDroppable != this.state.droppableBelow){
-    //   if (this.state.currentDroppable){
-    //     console.log('leaving area');
-    //   }
-    //   this.state.currentDroppable = this.state.droppableBelow;
-    //   if (this.state.currentDroppable){
-    //     console.log('entering area');
-    //   }
-    // }
-  }
-  onMouseMove(e){
-    this.onMove(e);
-    e.preventDefault();
-  }
-  onTouchStart(e){
-    this.onStart(e.touches[0]);
-    document.addEventListener('touchmove', this.onTouchMove, {passive: false});
-    document.addEventListener('touchend', this.onTouchEnd, {passive: false});
-    e.preventDefault();
-  }
-  onTouchMove(e){
-    this.onMove(e.touches[0]);
-    e.preventDefault();
-  }
-  onTouchEnd(e){
-    document.removeEventListener('touchmove', this.onTouchMove);
-    document.removeEventListener('touchend', this.onTouchEnd);
-    this.props.onStop && this.props.onStop(this.state.x, this.state.y);
-    e.preventDefault();
-  }
   dragStart(e){
     e.dataTransfer.setData('letter', e.target.firstChild.textContent);
     console.log(e.target.dataset.id);
@@ -226,18 +127,10 @@ class Tile extends React.Component {
   render(){
     return(
       <button
-      onMouseDown = {this.onMouseDown}
-      onTouchStart = {this.onTouchStart}
-      onDragStart = {this.dragStart}
       className = 'tile'
+      draggable
+      onDragStart = {this.dragStart}
       data-id = {this.props.dataId}
-      style = {{
-        position: 'absolute',
-        left: this.state.x,
-        top: this.state.y,
-        touchAction: 'none'
-      }}
-      ref={(div) => { this.handle = div; }}
       >
         {this.props.letter}
       {(() => {
@@ -265,8 +158,6 @@ class Rack extends React.Component {
           dataId = {tile['index']}
           letter = {tile['letter']}
           points = {tile['points']}
-          x = {tile['index'] * 50 + 10}
-          y = {320}
         />
       })
     )

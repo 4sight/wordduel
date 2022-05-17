@@ -76,8 +76,7 @@ class Square extends React.Component {
 
   drop(e){
     this.setState({
-      dragOver: !this.state.dragOver,
-      drop: e.dataTransfer.getData('letter')
+      dragOver: !this.state.dragOver
     });
     e.preventDefault();
   }
@@ -150,7 +149,7 @@ class Tile extends React.Component {
     gridY: PropTypes.number
   }; 
   onStart(e){
-    e.dataTransfer.setData('letter', e.target.firstChild.textContent);
+    // e.dataTransfer.setData('letter', e.target.firstChild.textContent);
     console.log(e.target.dataset.id);
     const ref = ReactDOM.findDOMNode(this.handle);
     const body = document.body;
@@ -183,12 +182,15 @@ class Tile extends React.Component {
     document.removeEventListener('mouseup', this.onMouseUp);
     this.props.onStop && this.props.onStop(this.state.x, this.state.y);
     e.preventDefault();
-    e.target.hidden = true;
+    e.target.style.display = 'none';
     this.state.elemBelow = document.elementFromPoint(e.clientX, e.clientY);
     console.log(this.state.elemBelow);
-    if (this.state.elemBelow.className !== "game" || "rack")
-      {console.log('on board');}
-    else {e.target.hidden = false;}
+    if (this.state.elemBelow.className !== "game" || this.state.elemBelow.className !== "game"){
+      console.log('on board');
+      this.state.elemBelow.innerText = e.target.innerText;
+    } else {
+      e.target.style.display = 'initial';
+    }
   }
   onMouseMove(e){
     this.onMove(e);

@@ -149,7 +149,6 @@ class Tile extends React.Component {
     gridY: PropTypes.number
   }; 
   onStart(e){
-    // e.dataTransfer.setData('letter', e.target.firstChild.textContent);
     console.log(e.target.dataset.id);
     const ref = ReactDOM.findDOMNode(this.handle);
     const body = document.body;
@@ -185,7 +184,12 @@ class Tile extends React.Component {
     e.target.style.display = 'none';
     this.state.elemBelow = document.elementFromPoint(e.clientX, e.clientY);
     console.log(this.state.elemBelow);
-    if (this.state.elemBelow.className !== "game" || this.state.elemBelow.className !== "game"){
+    if (this.state.elemBelow.className == 'first' ||
+        this.state.elemBelow.className == 'TW' ||
+        this.state.elemBelow.className == 'DW' ||
+        this.state.elemBelow.className == 'TL' ||
+        this.state.elemBelow.className == 'DL' ||
+        this.state.elemBelow.className == 'normal'){
       console.log('on board');
       this.state.elemBelow.innerText = e.target.innerText;
     } else {

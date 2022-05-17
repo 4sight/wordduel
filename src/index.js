@@ -191,10 +191,11 @@ class Tile extends React.Component {
         this.state.elemBelow.className == 'DL' ||
         this.state.elemBelow.className == 'normal'){
       console.log('on board');
-      this.state.elemBelow.innerText = e.target.innerText;
+      let letter = e.target.innerText.charAt(0);
+      this.state.elemBelow.innerText = letter;
     } else {
       e.target.style.display = 'initial';
-    }
+      }
   }
   onMouseMove(e){
     this.onMove(e);

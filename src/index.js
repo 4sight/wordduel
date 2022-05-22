@@ -53,51 +53,12 @@ for (let i = 0; i < 7; i++){
 console.log(playersTiles);
 
 class Square extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      dragOver: false,
-      drop:     null
-    };
-    this.handleDragOver = this.handleDragOver.bind(this);
-    this.drop = this.drop.bind(this);
-  }
-
-  handleDragOver(e){
-    this.setState({
-      dragOver: !this.state.dragOver
-    });
-    console.log('dragover');
-  }
-
-  handleDragOverCursor(e){
-    e.preventDefault();
-  }
-
-  drop(e){
-    this.setState({
-      dragOver: !this.state.dragOver
-    });
-    e.preventDefault();
-  }
-
   render(){
     return(
       <button
-        className = {(() => {
-          if (this.state.dragOver)
-            { return this.props.className + ' hover' } else {
-              if (this.state.drop)
-                { return 'dropped' } else {
-              return this.props.className }}})()}
-        onDrop =        {this.drop}
-        onMouseUp =     {this.drop}
-        onDragEnter =   {this.handleDragOver}
-        onDragOver =    {this.handleDragOverCursor}
-        onDragLeave =   {this.handleDragOver}
+        className = {this.props.className}
       >
-        {(() => {if (this.state.drop) { return <div>{this.state.drop}</div> } else {
-          switch (this.props.className){
+        {(() => {switch (this.props.className){
             case 'first':
               return <div>★</div>
             case 'TW':
@@ -110,8 +71,8 @@ class Square extends React.Component {
               return <div>2L</div>
             default:
               return <div></div>
-          }}
-        })()
+          }})
+        ()
       }
       </button>
     )

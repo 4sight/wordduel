@@ -86,17 +86,9 @@ ol, ul {
   background-color: yellow;
 }
 
-$hover-border: 4px solid #999;
-
 .normal {
   @include square;
   background-color: lightgrey;
-}
-
-.normal.hover {
-  @include square;
-  background-color: lightgrey;
-  border: $hover-border;
 }
 
 .first {
@@ -105,21 +97,9 @@ $hover-border: 4px solid #999;
   background-color: pink;
 }
 
-.first.hover {
-  @include square;
-  background-color: pink;
-  border: $hover-border;
-}
-
 .TW {
   @include square;
   background-color: red;
-}
-
-.TW.hover {
-  @include square;
-  background-color: red;
-  border: $hover-border;
 }
 
 .DW {
@@ -127,30 +107,12 @@ $hover-border: 4px solid #999;
   background-color: pink;
 }
 
-.DW.hover {
-  @include square;
-  background-color: pink;
-  border: $hover-border;
-}
-
 .TL {
   @include square;
   background-color: #6264F4;
 }
 
-.TL.hover {
-  @include square;
-  background-color: #6264F4;
-  border: $hover-border;
-}
-
 .DL {
   @include square;
   background-color: lightblue;
-}
-
-.DL.hover {
-  @include square;
-  background-color: lightblue;
-  border: $hover-border;
 }

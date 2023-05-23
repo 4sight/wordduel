@@ -53,9 +53,23 @@ for (let i = 0; i < 7; i++){
 console.log(playersTiles);
 
 class Square extends React.Component {
+  handleDragOver = (event) => {
+    // Allow the element to be dropped
+    event.preventDefault();
+  }
+
+  handleDrop = (event) => {
+    // Get the id of the dropped tile from the data transfer object
+    const letter = event.dataTransfer.getData('text/plain');
+
+    // Do something with the dropped tile id (e.g., update the board state)
+    console.log('Tile dropped:', letter);
+  }
+
   render(){
     return(
-      <button className = {this.props.className}
+      <button
+        className = {this.props.className}
         onDragOver = {this.handleDragOver}
         onDrop = {this.handleDrop}
       >
@@ -80,7 +94,7 @@ class Square extends React.Component {
 
 class Tile extends React.Component {
   handleDragStart = (event) => {
-    // Set the data being dragged (in this case, the tile's id)
+    // Set the data being dragged
     event.dataTransfer.setData('text/plain', this.props.letter);
   }
 
@@ -145,23 +159,12 @@ const board = [
   'TW', 'normal', 'normal', 'DL', 'normal', 'normal', 'normal', 'TW', 'normal', 'normal', 'normal', 'DL', 'normal', 'normal', 'TW',];
 
 class Board extends React.Component {
-  handleDragOver = (event) => {
-    // Allow the element to be dropped
-    event.preventDefault();
-  }
-
-  handleDrop = (event) => {
-    // Get the id of the dropped tile from the data transfer object
-    const tileId = event.dataTransfer.getData('text/plain');
-
-    // Do something with the dropped tile id (e.g., update the board state)
-    console.log('Tile dropped:', tileId);
-  }
-
   render(){
     return(
       board.map(function(square, index){
-        return <Square key = {index} className = {square}
+        return <Square
+          key = {index}
+          className = {square}
         />
       })
     )    
